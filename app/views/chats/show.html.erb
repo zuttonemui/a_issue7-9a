@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/info', user: current_user %>
+      <%= render 'books/form', book: Book.new%>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>"><%= @user.name %>'s chat</h2>
+
+      <div class="message" style="width: 400px;">
+        <% @chats.each do |chat| %>
+          <% if chat.user_id == current_user.id %>
+            <p style="text-align: right;">
+              <%= chat.message %>
+              <%= image_tag chat.user.get_profile_image(50,50), class: "ml-2 rounded-circle" %>
+            </p>
+          <% else %>
+            <p style="text-align: left;">
+              <%= image_tag chat.user.get_profile_image(50,50), class: "mr-2 rounded-circle" %>
+              <%= chat.message %>
+            </p>
+          <% end %>
+        <% end %>
+      </div>
+      
+      <div class="errors">
+        <%= render "layouts/errors", obj: @chat %>
+      </div>
+      
+      <%= form_with model: @chat, data: {remote: true} do |f| %>
+        <%= f.text_field :message %>
+        <%= f.hidden_field :room_id %>
+      <% end %>
+    </div>
+  </div>
+</div>

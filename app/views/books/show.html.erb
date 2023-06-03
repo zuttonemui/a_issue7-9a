@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/info', user: @book.user %>
+      <%= render 'form', book: Book.new %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="w-25">
+              <%= link_to user_path(@book.user) do %>
+                <%= image_tag @book.user.get_profile_image(100,100) %></br>
+                <%= @book.user.name %>
+              <% end %>
+            </td>
+            <td><%= link_to @book.title, "" %></td>
+            <td><%= @book.body %></td>
+            <td id="favorite-btn-<%= @book.id %>"><%= render 'favorites/favorite_btn', book: @book %></td>
+            <td class="book-comments-counter">
+              <%= render 'book_comments/counter', book: @book %>
+            </td>
+            <% if @book.user == current_user %>
+              <td><%= link_to "Edit", edit_book_path, class: "btn btn-success btn-sm" %></td>
+              <td><%= link_to "Delete", book_path(@book), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-danger btn-sm" %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Comment</h2>
+      <div class="book-comments-index">
+        <%= render 'book_comments/index', book: @book %>
+      </div>
+      <%= render 'book_comments/form', book: @book, book_comment: @book_comment %>
+    </div>
+  </div>
+</div>

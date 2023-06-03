@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'info', user: @user %>
+      <%= render 'books/form', book: Book.new%>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @books.each do |book| %>
+          <tr>
+            <td class="w-25"><%= link_to user_path(@user) do %><%= image_tag book.user.get_profile_image(80,80) %><% end %></td>
+            <td><%= link_to book.title, book_path(book) %></td>
+            <td><%= book.body %></td>
+            <td id="favorite-btn-<%= book.id %>"><%= render 'favorites/favorite_btn', book: book %></td>
+            <td>comment : <%= book.book_comments.count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <div class="row mb-5">
+        <h4>投稿数の前日比・前週比</h4>
+        <%= render 'count' %>
+      </div>
+      <div class="row mb-5">
+        <h4>7日間分の投稿数</h4>
+        <%= render 'one_week' %>
+      </div>
+      <div class="form-group">
+        <%= form_with url: user_search_path(@user), local: false, method: :get do |f| %>
+          <%= f.date_field :created_at %>
+          <%= f.submit 'search', class: 'btn btn-info btn-sm'  %>
+        <% end %>
+      </div>
+      <div id="search_result">
+        <% if @search_book.present? %>
+          <%= render 'search', search_book: @search_book %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
