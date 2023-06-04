@@ -5,7 +5,7 @@
       <th></th>
       <th>name</th>
       <th>introduction</th>
-      <th></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
   <tbody>
@@ -14,7 +14,10 @@
       <td class="w-25"><%= image_tag group.get_group_image(80,80) %></td>
       <td><%= link_to group.name, group_path(group) %></td>
       <td><%= group.introduction %></td>
-      <td><i class="fa-solid fa-users"></i></td>
+      <td>
+        <i class="fas fa-users"></i> 
+        <%= group.users.count %>
+      </td>
       <td>
         <% if current_user.id == group.owner_id %>
           <%= link_to "Edit", edit_group_path(group), class: "btn btn-sm btn-success" %>

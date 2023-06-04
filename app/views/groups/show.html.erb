@@ -14,9 +14,20 @@
             </td>
             <td><%= @group.name %></td>
             <td><%= @group.introduction %></td>
-            <% if @group.owner_id == current_user.id %>
-              <td><%= link_to "Edit", edit_group_path(@group), class: "btn btn-success btn-sm" %></td>
-            <% end %>
+            <td>
+              <% @group.users.each do |user| %>
+                <%= image_tag user.get_profile_image(30,30), class:"mr-1 mb-1 rounded-circle "%><%= user.name %></br>
+              <% end %>
+            </td>
+            <td>
+              <% if @group.owner_id == current_user.id %>
+                <%= link_to "Edit", edit_group_path(@group), class: "btn btn-success btn-sm" %>
+              <% elsif @group.users.include?(current_user) %>
+                <%= link_to "Leave this group", group_path(@group), method: :delete, class: "btn btn-danger btn-sm"%>
+              <% else %>
+                <%= link_to "Join the group", group_join_path(@group), class: "btn btn-success btn-sm" %>
+              <% end %>
+            </td>
           </tr>
         </tbody>
       </table>
