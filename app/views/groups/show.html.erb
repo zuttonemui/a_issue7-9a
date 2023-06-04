@@ -7,9 +7,18 @@
     <div class="col-md-8 offset-md-1">
       <h2>Group detail</h2>
       <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>name</th>
+            <th>introduction</th>
+            <th>member</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
-            <td class="w-25">
+            <td style="width: 120px;">
               <%= image_tag @group.get_group_image(100,100) %>
             </td>
             <td><%= @group.name %></td>
@@ -26,6 +35,11 @@
                 <%= link_to "Leave this group", group_path(@group), method: :delete, class: "btn btn-danger btn-sm"%>
               <% else %>
                 <%= link_to "Join the group", group_join_path(@group), class: "btn btn-success btn-sm" %>
+              <% end %>
+            </td>
+            <td>
+              <% if @group.owner_id == current_user.id %>
+                <%= link_to "Notice an Event", group_new_mail_path(@group), class: "btn btn-info btn-sm" %>
               <% end %>
             </td>
           </tr>
