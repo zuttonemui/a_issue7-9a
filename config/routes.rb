@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'chat/show'
   root to: 'homes#top'
   get 'home/about' => 'homes#about', as: 'about'
   devise_for :users
@@ -13,6 +12,9 @@ Rails.application.routes.draw do
     get 'folllowers' => 'relationships#followers', as: 'followers'
     get 'search' => 'users#search'
   end
-  resources :chats, only: [:show, :create]
   get 'search' => 'searches#search'
+  resources :chats, only: [:show, :create]
+  resources :groups do
+    get 'join' => 'groups#join'
+  end
 end

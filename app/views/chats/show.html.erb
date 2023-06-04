@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-md-3">
       <%= render 'users/info', user: current_user %>
-      <%= render 'books/form', book: Book.new%>
+      <%= render 'books/form', book: Book.new %>
     </div>
     <div class="col-md-8 offset-md-1">
       <h2 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>"><%= @user.name %>'s chat</h2>
 
-      <div class="message" style="width: 400px;">
+      <div class="message w-100">
         <% @chats.each do |chat| %>
           <% if chat.user_id == current_user.id %>
             <p style="text-align: right;">

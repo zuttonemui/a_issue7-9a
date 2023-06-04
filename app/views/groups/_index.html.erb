@@ -1,0 +1,26 @@
+<h2>Groups</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>name</th>
+      <th>introduction</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% groups.each do |group| %>
+    <tr>
+      <td class="w-25"><%= image_tag group.get_group_image(80,80) %></td>
+      <td><%= link_to group.name, group_path(group) %></td>
+      <td><%= group.introduction %></td>
+      <td><i class="fa-solid fa-users"></i></td>
+      <td>
+        <% if current_user.id == group.owner_id %>
+          <%= link_to "Edit", edit_group_path(group), class: "btn btn-sm btn-success" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
