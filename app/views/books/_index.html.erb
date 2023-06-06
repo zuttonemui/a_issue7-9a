@@ -1,9 +1,3 @@
-<h2>Books</h2>
-<p>
-  <%= link_to '新しい順', books_path(latest: "true") %> |
-  <%= link_to '評価の高い順', books_path(star: "true") %> |
-  <%= link_to 'いいね順', books_path(fav: "true") %>
-</p>
 <table class="table">
   <thead>
     <tr>
@@ -21,8 +15,8 @@
       <td><%= link_to book.title, book_path(book) %></td>
       <td><%= book.body %></td>
       <td>
-        <% if book.tag.present? %>
-          <%= link_to book.tag, tag_search_path(tag: book.tag) %>
+        <% book.tags.each do |tag| %>
+          <li style="list-style: none;"><%= link_to tag.name, search_path(content: tag.name, model: "tag", method: "perfect") %></li>
         <% end %>
       </td>
       <td id="favorite-btn-<%= book.id %>"><%= render 'favorites/favorite_btn', book: book %></td>

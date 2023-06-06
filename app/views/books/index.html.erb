@@ -6,6 +6,12 @@
       <%= render 'form', book: @book %>
     </div>
     <div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
+      <p>
+        <%= link_to '新しい順', books_path(sort: 'created_at DESC') %> |
+        <%= link_to '評価の高い順', books_path(sort: 'star DESC') %> |
+        <%= link_to 'いいね順', books_path(fav: "true") %>
+      </p>
       <%= render 'index', books: @books %>
     </div>
   </div>
