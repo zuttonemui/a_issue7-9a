@@ -1,12 +1,18 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!
   before_action :is_matching_login_user, only: [:edit, :update]
-  
+
   def index
-    @books = Book.includes(:favorited_users).
-      sort_by {|x|
-        x.favorited_users.includes(:favorites).size}.reverse
     @book = Book.new
+    if params[:latest]
+      @books = Book.all.sort_by{|x| x.created_at}.reverse
+    elsif params[:star]
+      @books = Book.all.sort_by{|x| x.star}.reverse
+    elsif params[:fav]
+      @books = Book.all.sort_by {|x| x.favorites.count}.reverse
+    else
+      @books = Book.all
+    end
   end
 
   def show
@@ -16,7 +22,7 @@ class BooksController < ApplicationController
       current_user.read_counts.create(book_id: @book.id)
     end
   end
-  
+
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
@@ -28,11 +34,11 @@ class BooksController < ApplicationController
       render 'index'
     end
   end
-  
+
   def edit
     @book = Book.find(params[:id])
   end
-  
+
   def update
     @book = Book.find(params[:id])
     if @book.update(book_params)
@@ -42,23 +48,23 @@ class BooksController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
     redirect_to books_path
   end
-  
+
   private
   def book_params
     params.require(:book).permit(:title, :body, :star)
   end
-  
+
   def is_matching_login_user
     book = Book.find(params[:id])
     unless book.user_id == current_user.id
       redirect_to books_path
     end
   end
-  
+
 end

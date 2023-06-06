@@ -1,4 +1,9 @@
 <h2>Books</h2>
+<p>
+  <%= link_to '新しい順', books_path(latest: "true") %> |
+  <%= link_to '評価の高い順', books_path(star: "true") %> |
+  <%= link_to 'いいね順', books_path(fav: "true") %>
+</p>
 <table class="table">
   <thead>
     <tr>
