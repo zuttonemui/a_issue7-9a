@@ -17,6 +17,11 @@
             </td>
             <td><%= link_to @book.title, "" %></td>
             <td><%= @book.body %></td>
+            <td>
+              <% if @book.tag.present? %>
+                <%= @book.tag %>
+              <% end %>
+            </td>
             <td id="favorite-btn-<%= @book.id %>"><%= render 'favorites/favorite_btn', book: @book %></td>
             <td class="book-comments-counter">
               <%= render 'book_comments/counter', book: @book %>

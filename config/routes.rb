@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get 'home/about' => 'homes#about', as: 'about'
   devise_for :users
-  resources :books, only: [:index, :show, :edit, :create, :update, :destroy] do
+  resources :books do
     resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'search' => 'users#search'
   end
   get 'search' => 'searches#search'
+  get 'tag_search' => 'books#tag_search'
   resources :chats, only: [:show, :create]
   resources :groups do
     get 'join' => 'groups#join'

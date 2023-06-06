@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+  <%= form_with url: tag_search_path, local: true, method: :get do |f| %>
+    <%= f.text_field :tag %>
+    <%= f.submit "tag_search", class: "btn btn-info btn-sm" %>
+  <% end %>
+<% end%>
