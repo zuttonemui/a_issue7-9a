@@ -22,7 +22,7 @@
       <td id="favorite-btn-<%= book.id %>"><%= render 'favorites/favorite_btn', book: book %></td>
       <td><%= render 'book_comments/counter', book: book %></td>
       <td>view: <%= book.read_counts.count %></td>
-      <td><%= render 'star', book: book %></td>
+      <td><%= render 'books/star', book: book %></td>
     </tr>
   <% end %>
   </tbody>

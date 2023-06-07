@@ -19,13 +19,13 @@ class Book < ApplicationRecord
     old_tags = current_tags - savebook_tags
     new_tags = savebook_tags - current_tags
 
-    old_tags.each do |new_name|
-      book_tag = Tag.find_or_create_by(name:new_name)
-      self.tags << book_tag
+    old_tags.each do |old_name|
+      self.tags.delete Tag.find_by(name:old_name)
     end
 
-    new_tags.each do |old_name|
-      self.tags.delete Taf.find_by(name:old_name)
+    new_tags.each do |new_name|
+      book_tag = Tag.find_or_create_by(name:new_name)
+      self.tags << book_tag
     end
 
   end
