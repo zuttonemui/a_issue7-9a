@@ -8,7 +8,7 @@ class Tag < ApplicationRecord
     if method =='perfect'
       tags = Tag.where(name: content)
     elsif method == 'forward'
-      tags = Tag.where('name LIKE?', contennt + '%')
+      tags = Tag.where('name LIKE?', content + '%')
     elsif method == 'backward'
       tags = Tag.where('name LIKE?', '%' + content)
     else
